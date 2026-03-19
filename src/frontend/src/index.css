@@ -1,0 +1,139 @@
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* FitYoga India - Warm Cream + Saffron + Forest Green */
+    --background: 0.97 0.008 80;
+    --foreground: 0.18 0.03 50;
+
+    --card: 1.0 0.0 0;
+    --card-foreground: 0.18 0.03 50;
+
+    --popover: 1.0 0.0 0;
+    --popover-foreground: 0.18 0.03 50;
+
+    /* Saffron/Orange primary */
+    --primary: 0.68 0.18 50;
+    --primary-foreground: 0.99 0.005 80;
+
+    /* Forest Green secondary */
+    --secondary: 0.45 0.13 145;
+    --secondary-foreground: 0.99 0.005 145;
+
+    --muted: 0.93 0.015 80;
+    --muted-foreground: 0.5 0.04 60;
+
+    --accent: 0.92 0.05 50;
+    --accent-foreground: 0.25 0.05 50;
+
+    --destructive: 0.58 0.22 22;
+    --destructive-foreground: 0.99 0.005 22;
+
+    --border: 0.88 0.025 70;
+    --input: 0.9 0.02 70;
+    --ring: 0.68 0.18 50;
+
+    --radius: 0.875rem;
+
+    --chart-1: 0.68 0.18 50;
+    --chart-2: 0.45 0.13 145;
+    --chart-3: 0.62 0.15 200;
+    --chart-4: 0.7 0.17 30;
+    --chart-5: 0.55 0.12 180;
+
+    --sidebar: 0.97 0.008 80;
+    --sidebar-foreground: 0.18 0.03 50;
+    --sidebar-primary: 0.68 0.18 50;
+    --sidebar-primary-foreground: 0.99 0.005 80;
+    --sidebar-accent: 0.93 0.015 80;
+    --sidebar-accent-foreground: 0.18 0.03 50;
+    --sidebar-border: 0.88 0.025 70;
+    --sidebar-ring: 0.68 0.18 50;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Bricolage Grotesque", sans-serif;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: oklch(var(--background));
+}
+::-webkit-scrollbar-thumb {
+  background: oklch(var(--border));
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(var(--primary));
+}
+
+/* Workout card hover */
+.workout-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.workout-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px oklch(0.68 0.18 50 / 0.18);
+}
+
+/* Saffron gradient hero */
+.hero-gradient {
+  background: linear-gradient(
+    135deg,
+    oklch(0.72 0.2 50) 0%,
+    oklch(0.65 0.18 45) 50%,
+    oklch(0.42 0.14 145) 100%
+  );
+}
+
+/* Progress bar gradient */
+.progress-gradient {
+  background: linear-gradient(90deg, oklch(0.68 0.18 50), oklch(0.45 0.13 145));
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fade-up {
+  animation: fadeUp 0.5s ease forwards;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
