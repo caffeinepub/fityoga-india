@@ -10,12 +10,12 @@ export default function AppFooter() {
         <div className="flex items-center gap-2">
           <Dumbbell className="w-4 h-4 text-primary" />
           <span className="font-display font-semibold text-foreground">
-            <span className="text-primary">FitYoga</span> India
+            <span className="text-primary">GymCoach</span> Pro
           </span>
         </div>
         <p>
           © {year}. Built with{" "}
-          <Heart className="w-3 h-3 inline text-primary fill-current" /> using{" "}
+          <Heart className="w-3 h-3 inline text-secondary fill-current" /> using{" "}
           <a
             href={`https://caffeine.ai?utm_source=caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(hostname)}`}
             target="_blank"
@@ -25,6 +25,11 @@ export default function AppFooter() {
             caffeine.ai
           </a>
         </p>
+        <div className="flex items-center gap-4">
+          <span>Privacy</span>
+          <span>Terms</span>
+          <span>Contact</span>
+        </div>
       </div>
     </footer>
   );

@@ -5,79 +5,81 @@ import { Link } from "@tanstack/react-router";
 import {
   Activity,
   ArrowRight,
-  BarChart3,
-  CalendarDays,
+  BarChart2,
+  Calendar,
+  Camera,
+  CheckCircle,
   Dumbbell,
-  Flame,
-  Salad,
-  Star,
+  Target,
 } from "lucide-react";
 import { motion } from "motion/react";
 import { useInternetIdentity } from "../hooks/useInternetIdentity";
 
 const features = [
   {
-    icon: Dumbbell,
-    title: "100+ Workouts",
-    description: "Yoga, Gym, Cardio — curated for Indian fitness goals",
+    icon: Target,
+    title: "Goal Setting",
+    desc: "Set your target: Weight Loss, Muscle Gain, or General Fitness with a custom timeline",
     color: "text-primary",
     bg: "bg-primary/10",
   },
   {
-    icon: CalendarDays,
-    title: "7-Day Plans",
-    description: "Structured daily plans to build healthy habits",
-    color: "text-secondary",
-    bg: "bg-secondary/10",
-  },
-  {
-    icon: Salad,
-    title: "Indian Diet Tips",
-    description: "Nutrition advice with desi food options",
+    icon: Calendar,
+    title: "Daily Plans",
+    desc: "Personalized workout + meal plans generated based on your specific fitness goal",
     color: "text-primary",
     bg: "bg-primary/10",
   },
   {
-    icon: BarChart3,
-    title: "Progress Tracking",
-    description: "Streak counters, stats, and achievement badges",
+    icon: CheckCircle,
+    title: "Daily Check-In",
+    desc: "Log your workout and meals every day to build consistency and track progress",
     color: "text-secondary",
     bg: "bg-secondary/10",
   },
   {
-    icon: Flame,
-    title: "Burn Calories",
-    description: "HIIT, Dance Cardio, and power workouts",
+    icon: BarChart2,
+    title: "Progress Graph",
+    desc: "Visual chart showing your daily progress, days done, and days remaining",
+    color: "text-secondary",
+    bg: "bg-secondary/10",
+  },
+  {
+    icon: Camera,
+    title: "Photo Tracking",
+    desc: "Upload daily progress photos to visually track your body transformation",
     color: "text-primary",
     bg: "bg-primary/10",
   },
   {
     icon: Activity,
-    title: "For All Levels",
-    description: "Beginner to advanced — start wherever you are",
+    title: "Smart Analytics",
+    desc: "Know exactly how far you've come and what it'll take to hit your goal",
     color: "text-secondary",
     bg: "bg-secondary/10",
   },
 ];
 
-const testimonials = [
+const steps = [
   {
-    name: "Priya Mehta",
-    city: "Mumbai",
-    text: "Lost 8kg in 3 months! The daily plans are so easy to follow.",
-    rating: 5,
+    n: "01",
+    title: "Create Account",
+    desc: "Sign in and tell us your fitness goals and timeline",
   },
   {
-    name: "Rahul Singh",
-    city: "Delhi",
-    text: "The yoga sequences are authentic and really calming. Love the app!",
-    rating: 5,
+    n: "02",
+    title: "Get Your Plan",
+    desc: "Receive a personalized daily workout + meal plan",
   },
   {
-    name: "Sneha Patel",
-    city: "Bangalore",
-    text: "Finally a fitness app that uses Indian food in diet tips. Game changer!",
-    rating: 5,
+    n: "03",
+    title: "Check In Daily",
+    desc: "Log your progress every day and upload photos",
+  },
+  {
+    n: "04",
+    title: "See Results",
+    desc: "Track your transformation with detailed analytics",
   },
 ];
 
@@ -88,89 +90,87 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen">
       {/* Hero */}
-      <section className="hero-gradient text-white py-20 px-4">
-        <div className="container max-w-5xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <Badge className="mb-4 bg-white/20 text-white border-white/30 text-sm px-4 py-1">
-              🇮🇳 Made for India · Age 15–30
-            </Badge>
-            <h1 className="font-display text-4xl sm:text-6xl font-bold mb-6 leading-tight">
-              Your Fitness Journey
-              <br />
-              <span className="text-yellow-200">Starts Today</span>
-            </h1>
-            <p className="text-lg sm:text-xl text-white/90 mb-10 max-w-2xl mx-auto">
-              Yoga, Gym, Cardio — all in one app. Personalized plans, Indian
-              diet tips, and progress tracking designed for young India.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              {isAuthenticated ? (
-                <Link to="/dashboard">
+      <section className="relative overflow-hidden">
+        <img
+          src="/assets/generated/hero-gym.dim_1200x500.jpg"
+          alt="GymCoach Pro"
+          className="w-full h-[480px] sm:h-[520px] object-cover"
+        />
+        <div className="absolute inset-0 hero-bg" />
+        <div className="absolute inset-0 flex items-center">
+          <div className="container max-w-6xl mx-auto px-4">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65 }}
+              className="max-w-2xl"
+            >
+              <Badge className="mb-4 bg-white/20 text-white border-white/30 backdrop-blur-sm">
+                🏋️ AI-Powered Gym Trainer
+              </Badge>
+              <h1 className="font-display text-4xl sm:text-6xl font-bold text-white mb-5 leading-tight">
+                Build the Body
+                <br />
+                <span className="text-amber-400">You Deserve</span>
+              </h1>
+              <p className="text-white/85 text-lg mb-8 max-w-lg">
+                Personalized workout plans, daily meal guides, progress
+                tracking, and photo check-ins — your complete gym trainer in one
+                app.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3">
+                {isAuthenticated ? (
+                  <Link to="/dashboard">
+                    <Button
+                      size="lg"
+                      className="bg-secondary text-secondary-foreground hover:bg-secondary/90 font-bold text-base px-8"
+                      data-ocid="landing.dashboard.button"
+                    >
+                      Go to Dashboard <ArrowRight className="ml-2 w-5 h-5" />
+                    </Button>
+                  </Link>
+                ) : (
                   <Button
                     size="lg"
-                    className="bg-white text-primary font-bold hover:bg-white/90 text-base px-8"
-                    data-ocid="landing.dashboard.button"
+                    className="bg-secondary text-secondary-foreground hover:bg-secondary/90 font-bold text-base px-8"
+                    onClick={login}
+                    disabled={loginStatus === "logging-in"}
+                    data-ocid="landing.login.button"
                   >
-                    Go to Dashboard <ArrowRight className="ml-2 w-5 h-5" />
+                    {loginStatus === "logging-in"
+                      ? "Signing in..."
+                      : "Start Free Today 🚀"}
                   </Button>
-                </Link>
-              ) : (
-                <Button
-                  size="lg"
-                  className="bg-white text-primary font-bold hover:bg-white/90 text-base px-8"
-                  onClick={login}
-                  disabled={loginStatus === "logging-in"}
-                  data-ocid="landing.login.button"
-                >
-                  {loginStatus === "logging-in"
-                    ? "Logging in..."
-                    : "Start Free 🚀"}
-                </Button>
-              )}
-              <Link to="/workouts">
+                )}
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-white/60 text-white bg-white/10 hover:bg-white/20 text-base px-8"
-                  data-ocid="landing.explore.button"
+                  className="border-white/50 text-white bg-white/10 hover:bg-white/20 text-base px-8"
+                  data-ocid="landing.learn_more.button"
                 >
-                  Explore Workouts
+                  <Dumbbell className="mr-2 w-5 h-5" /> How It Works
                 </Button>
-              </Link>
-            </div>
-          </motion.div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* Hero image */}
-      <div className="relative -mt-1 overflow-hidden">
-        <img
-          src="/assets/generated/hero-fitness.dim_1200x400.jpg"
-          alt="Fitness yoga training"
-          className="w-full object-cover max-h-64"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background" />
-      </div>
-
-      {/* Stats banner */}
+      {/* Stats */}
       <section className="bg-primary py-8 px-4">
         <div className="container max-w-5xl mx-auto">
-          <div className="grid grid-cols-3 gap-4 text-center text-primary-foreground">
+          <div className="grid grid-cols-3 gap-6 text-center text-primary-foreground">
             {[
-              { value: "50K+", label: "Active Users" },
-              { value: "200+", label: "Workouts" },
-              { value: "4.9★", label: "Rating" },
-            ].map((stat) => (
-              <div key={stat.label}>
+              { v: "10K+", l: "Active Users" },
+              { v: "90%", l: "See Results in 90 Days" },
+              { v: "4.9★", l: "User Rating" },
+            ].map((s) => (
+              <div key={s.l}>
                 <div className="font-display text-2xl sm:text-3xl font-bold">
-                  {stat.value}
+                  {s.v}
                 </div>
-                <div className="text-sm text-primary-foreground/80">
-                  {stat.label}
+                <div className="text-sm text-primary-foreground/80 mt-1">
+                  {s.l}
                 </div>
               </div>
             ))}
@@ -180,43 +180,41 @@ export default function LandingPage() {
 
       {/* Features */}
       <section className="py-16 px-4">
-        <div className="container max-w-5xl mx-auto">
+        <div className="container max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
             className="text-center mb-12"
           >
             <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">
-              Everything You Need
+              Everything You Need to Transform
             </h2>
-            <p className="text-muted-foreground text-lg">
-              Built specifically for the young fitness enthusiast in India
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              A complete system designed to help you achieve your fitness goals
+              with structure, consistency, and accountability.
             </p>
           </motion.div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {features.map((feature, i) => (
+            {features.map((f, i) => (
               <motion.div
-                key={feature.title}
+                key={f.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.08 }}
+                transition={{ delay: i * 0.07 }}
               >
-                <Card className="h-full hover:shadow-card transition-shadow">
+                <Card className="h-full hover:shadow-card gym-card">
                   <CardContent className="p-6">
                     <div
-                      className={`w-12 h-12 rounded-xl ${feature.bg} flex items-center justify-center mb-4`}
+                      className={`w-12 h-12 rounded-xl ${f.bg} flex items-center justify-center mb-4`}
                     >
-                      <feature.icon className={`w-6 h-6 ${feature.color}`} />
+                      <f.icon className={`w-6 h-6 ${f.color}`} />
                     </div>
                     <h3 className="font-display font-semibold text-lg mb-2">
-                      {feature.title}
+                      {f.title}
                     </h3>
-                    <p className="text-muted-foreground text-sm">
-                      {feature.description}
-                    </p>
+                    <p className="text-muted-foreground text-sm">{f.desc}</p>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -225,43 +223,27 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-16 px-4 bg-accent/30">
+      {/* How it works */}
+      <section className="py-16 px-4 bg-accent/40">
         <div className="container max-w-5xl mx-auto">
           <h2 className="font-display text-3xl font-bold text-center mb-12">
-            What People Say
+            How It Works
           </h2>
-          <div className="grid sm:grid-cols-3 gap-6">
-            {testimonials.map((t, i) => (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {steps.map((s, i) => (
               <motion.div
-                key={t.name}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                key={s.n}
+                initial={{ opacity: 0, x: -10 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
+                transition={{ delay: i * 0.1 }}
+                className="text-center"
               >
-                <Card className="h-full">
-                  <CardContent className="p-6">
-                    <div className="flex mb-3">
-                      {Array.from(
-                        { length: t.rating },
-                        (_, j) => `star-${j}`,
-                      ).map((starKey) => (
-                        <Star
-                          key={starKey}
-                          className="w-4 h-4 text-primary fill-primary"
-                        />
-                      ))}
-                    </div>
-                    <p className="text-sm text-muted-foreground mb-4 italic">
-                      "{t.text}"
-                    </p>
-                    <div className="font-semibold text-sm">{t.name}</div>
-                    <div className="text-xs text-muted-foreground">
-                      {t.city}
-                    </div>
-                  </CardContent>
-                </Card>
+                <div className="w-14 h-14 rounded-full bg-primary text-primary-foreground font-display font-bold text-lg flex items-center justify-center mx-auto mb-4">
+                  {s.n}
+                </div>
+                <h3 className="font-semibold mb-2">{s.title}</h3>
+                <p className="text-sm text-muted-foreground">{s.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -277,10 +259,11 @@ export default function LandingPage() {
             viewport={{ once: true }}
           >
             <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">
-              Ready to Transform? 💪
+              Ready to Start? 💪
             </h2>
             <p className="text-muted-foreground mb-8 text-lg">
-              Join thousands of Indian youth building a healthier lifestyle.
+              Join thousands building their best bodies. Your transformation
+              starts today.
             </p>
             {isAuthenticated ? (
               <Link to="/dashboard">
@@ -300,7 +283,9 @@ export default function LandingPage() {
                 disabled={loginStatus === "logging-in"}
                 data-ocid="landing.cta.button"
               >
-                Join Free Today
+                {loginStatus === "logging-in"
+                  ? "Signing in..."
+                  : "Get Started Free"}
               </Button>
             )}
           </motion.div>

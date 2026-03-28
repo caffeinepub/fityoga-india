@@ -8,16 +8,24 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useQueryClient } from "@tanstack/react-query";
 import { Link, useRouter } from "@tanstack/react-router";
-import { Dumbbell, LayoutDashboard, LogOut, Menu, User, X } from "lucide-react";
+import {
+  Dumbbell,
+  LayoutDashboard,
+  LogOut,
+  Menu,
+  ShieldCheck,
+  X,
+} from "lucide-react";
 import { useState } from "react";
 import { useInternetIdentity } from "../hooks/useInternetIdentity";
-import { useGetCallerUserProfile } from "../hooks/useQueries";
+import { useGetCallerUserProfile, useIsAdmin } from "../hooks/useQueries";
 
 export default function AppHeader() {
   const { identity, login, clear, loginStatus } = useInternetIdentity();
   const queryClient = useQueryClient();
   const isAuthenticated = !!identity;
   const { data: profile } = useGetCallerUserProfile();
+  const { data: isAdmin } = useIsAdmin();
   const [mobileOpen, setMobileOpen] = useState(false);
   const router = useRouter();
 
@@ -30,17 +38,13 @@ export default function AppHeader() {
   const navLinks = isAuthenticated
     ? [
         { to: "/dashboard", label: "Dashboard" },
-        { to: "/workouts", label: "Workouts" },
-        { to: "/daily-plan", label: "Daily Plan" },
-        { to: "/progress", label: "Progress" },
-        { to: "/diet", label: "Diet Tips" },
+        ...(isAdmin ? [{ to: "/admin", label: "Admin" }] : []),
       ]
     : [];
 
   return (
-    <header className="sticky top-0 z-50 bg-card/90 backdrop-blur-md border-b border-border">
+    <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-md border-b border-border shadow-sm">
       <div className="container max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-        {/* Logo */}
         <Link
           to="/"
           className="flex items-center gap-2 font-display font-bold text-xl"
@@ -49,30 +53,31 @@ export default function AppHeader() {
             <Dumbbell className="w-5 h-5 text-primary-foreground" />
           </div>
           <span>
-            <span className="text-primary">FitYoga</span>
-            <span className="text-foreground"> India</span>
+            <span className="text-primary">GymCoach</span>
+            <span className="text-foreground"> Pro</span>
           </span>
         </Link>
 
-        {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-1">
           {navLinks.map((link) => (
             <Link
               key={link.to}
               to={link.to}
-              className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent rounded-md transition-colors"
+              className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent rounded-md transition-colors relative"
               activeProps={{
                 className:
-                  "px-3 py-2 text-sm font-medium text-primary bg-accent/60 rounded-md",
+                  "px-3 py-2 text-sm font-medium text-primary bg-primary/10 rounded-md",
               }}
-              data-ocid={`nav.${link.label.toLowerCase().replace(" ", "_")}.link`}
+              data-ocid={`nav.${link.label.toLowerCase()}.link`}
             >
+              {link.label === "Admin" && (
+                <ShieldCheck className="w-3.5 h-3.5 inline mr-1" />
+              )}
               {link.label}
             </Link>
           ))}
         </nav>
 
-        {/* Auth */}
         <div className="flex items-center gap-2">
           {isAuthenticated ? (
             <DropdownMenu>
@@ -95,19 +100,25 @@ export default function AppHeader() {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem asChild>
-                  <Link to="/dashboard" className="flex items-center gap-2">
+                  <Link
+                    to="/dashboard"
+                    className="flex items-center gap-2"
+                    data-ocid="nav.dashboard.link"
+                  >
                     <LayoutDashboard className="w-4 h-4" /> Dashboard
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link
-                    to="/profile"
-                    className="flex items-center gap-2"
-                    data-ocid="nav.profile.link"
-                  >
-                    <User className="w-4 h-4" /> Profile
-                  </Link>
-                </DropdownMenuItem>
+                {isAdmin && (
+                  <DropdownMenuItem asChild>
+                    <Link
+                      to="/admin"
+                      className="flex items-center gap-2"
+                      data-ocid="nav.admin.link"
+                    >
+                      <ShieldCheck className="w-4 h-4" /> Admin Panel
+                    </Link>
+                  </DropdownMenuItem>
+                )}
                 <DropdownMenuItem
                   onClick={handleLogout}
                   className="text-destructive"
@@ -125,11 +136,9 @@ export default function AppHeader() {
               disabled={loginStatus === "logging-in"}
               data-ocid="nav.login.button"
             >
-              {loginStatus === "logging-in" ? "Logging in..." : "Login"}
+              {loginStatus === "logging-in" ? "Signing in..." : "Sign In"}
             </Button>
           )}
-
-          {/* Mobile menu toggle */}
           <Button
             variant="ghost"
             size="icon"
@@ -146,7 +155,6 @@ export default function AppHeader() {
         </div>
       </div>
 
-      {/* Mobile nav */}
       {mobileOpen && isAuthenticated && (
         <div className="md:hidden border-t border-border bg-card px-4 py-3 flex flex-col gap-1">
           {navLinks.map((link) => (

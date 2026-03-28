@@ -9,16 +9,13 @@ import {
 } from "@tanstack/react-router";
 import AppFooter from "./components/AppFooter";
 import AppHeader from "./components/AppHeader";
-import ProfileSetupModal from "./components/ProfileSetupModal";
+import ChatWidget from "./components/ChatWidget";
+import OnboardingModal from "./components/OnboardingModal";
 import { useInternetIdentity } from "./hooks/useInternetIdentity";
 import { useGetCallerUserProfile } from "./hooks/useQueries";
-import DailyPlanPage from "./pages/DailyPlanPage";
+import AdminPage from "./pages/AdminPage";
 import DashboardPage from "./pages/DashboardPage";
-import DietPage from "./pages/DietPage";
 import LandingPage from "./pages/LandingPage";
-import ProfilePage from "./pages/ProfilePage";
-import ProgressPage from "./pages/ProgressPage";
-import WorkoutsPage from "./pages/WorkoutsPage";
 
 const queryClient = new QueryClient();
 
@@ -30,7 +27,7 @@ function AppShell() {
     isLoading: profileLoading,
     isFetched,
   } = useGetCallerUserProfile();
-  const showProfileSetup =
+  const showOnboarding =
     isAuthenticated && !profileLoading && isFetched && profile === null;
 
   return (
@@ -40,7 +37,8 @@ function AppShell() {
         <Outlet />
       </main>
       <AppFooter />
-      <ProfileSetupModal open={showProfileSetup} />
+      {isAuthenticated && <ChatWidget />}
+      {showOnboarding && <OnboardingModal open />}
       <Toaster richColors position="top-right" />
     </div>
   );
@@ -58,42 +56,17 @@ const dashboardRoute = createRoute({
   path: "/dashboard",
   component: DashboardPage,
 });
-const workoutsRoute = createRoute({
+const adminRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: "/workouts",
-  component: WorkoutsPage,
-});
-const dailyPlanRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/daily-plan",
-  component: DailyPlanPage,
-});
-const progressRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/progress",
-  component: ProgressPage,
-});
-const dietRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/diet",
-  component: DietPage,
-});
-const profileRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/profile",
-  component: ProfilePage,
+  path: "/admin",
+  component: AdminPage,
 });
 
 const routeTree = rootRoute.addChildren([
   indexRoute,
   dashboardRoute,
-  workoutsRoute,
-  dailyPlanRoute,
-  progressRoute,
-  dietRoute,
-  profileRoute,
+  adminRoute,
 ]);
-
 const router = createRouter({ routeTree });
 
 declare module "@tanstack/react-router" {

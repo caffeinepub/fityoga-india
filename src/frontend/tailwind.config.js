@@ -68,24 +68,22 @@ export default {
           border: "oklch(var(--sidebar-border))",
           ring: "oklch(var(--sidebar-ring))",
         },
-        saffron: {
-          50: "oklch(0.97 0.03 70)",
-          100: "oklch(0.93 0.07 65)",
-          200: "oklch(0.87 0.12 58)",
-          300: "oklch(0.80 0.16 53)",
-          400: "oklch(0.74 0.19 51)",
-          500: "oklch(0.68 0.18 50)",
-          600: "oklch(0.60 0.17 46)",
-          700: "oklch(0.52 0.15 43)",
+        teal: {
+          50: "oklch(0.97 0.01 195)",
+          100: "oklch(0.93 0.025 195)",
+          200: "oklch(0.85 0.05 195)",
+          300: "oklch(0.74 0.08 195)",
+          400: "oklch(0.63 0.10 190)",
+          500: "oklch(0.56 0.10 195)",
+          600: "oklch(0.48 0.10 200)",
+          700: "oklch(0.40 0.09 205)",
+          800: "oklch(0.35 0.07 205)",
+          900: "oklch(0.28 0.05 210)",
         },
-        forest: {
-          50: "oklch(0.95 0.03 145)",
-          100: "oklch(0.88 0.07 145)",
-          200: "oklch(0.75 0.10 145)",
-          300: "oklch(0.60 0.12 145)",
-          400: "oklch(0.52 0.13 145)",
-          500: "oklch(0.45 0.13 145)",
-          600: "oklch(0.38 0.12 145)",
+        amber: {
+          400: "oklch(0.78 0.17 75)",
+          500: "oklch(0.73 0.17 70)",
+          600: "oklch(0.66 0.17 65)",
         },
       },
       borderRadius: {
@@ -94,9 +92,9 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       boxShadow: {
-        card: "0 2px 12px oklch(0.18 0.03 50 / 0.08)",
-        saffron: "0 0 40px oklch(0.68 0.18 50 / 0.25)",
-        forest: "0 0 40px oklch(0.45 0.13 145 / 0.20)",
+        card: "0 2px 12px oklch(0.56 0.10 195 / 0.10)",
+        teal: "0 0 30px oklch(0.56 0.10 195 / 0.20)",
+        amber: "0 4px 20px oklch(0.73 0.17 70 / 0.30)",
       },
       keyframes: {
         "accordion-down": {

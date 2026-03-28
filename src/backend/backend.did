@@ -1,0 +1,54 @@
+type UserStats = 
+ record {
+   checkIns: vec CheckIn;
+   daysRemaining: int;
+   profile: UserProfile;
+   progressPercent: nat;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type UserProfile = 
+ record {
+   age: nat;
+   goal: FitnessGoal;
+   height: float64;
+   name: text;
+   startTime: int;
+   targetDays: nat;
+   weight: float64;
+ };
+type FitnessGoal = 
+ variant {
+   generalFitness;
+   muscleGain;
+   weightLoss;
+ };
+type CheckIn = 
+ record {
+   day: nat;
+   mealsDone: bool;
+   note: text;
+   photoAssetId: opt text;
+   timestamp: int;
+   workoutDone: bool;
+ };
+service : {
+  _initializeAccessControlWithSecret: (userSecret: text) -> ();
+  adminGetAllUsers: () -> (vec record {
+                                 principal;
+                                 UserStats;
+                               }) query;
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  getCallerUserRole: () -> (UserRole) query;
+  getCheckInForDay: (day: nat) -> (opt CheckIn) query;
+  getMyCheckIns: () -> (vec CheckIn) query;
+  getMyProfile: () -> (opt UserProfile) query;
+  getMyStats: () -> (opt UserStats) query;
+  isCallerAdmin: () -> (bool) query;
+  saveCheckIn: (checkIn: CheckIn) -> ();
+  saveUserProfile: (profile: UserProfile) -> ();
+}
